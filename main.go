@@ -13,6 +13,6 @@ func main() {
 	ctxGetter := contextgetter.New(dummyContext)
 	jsEvaluator := evaluator.NewJSEvaluator(ctxGetter)
 
-	fmt.Println(jsEvaluator.Evaluate(`now().sub($.data.duration)`)) // simple
 	fmt.Println(jsEvaluator.Evaluate(`now().sub($.data.duration)`))
+	fmt.Println(jsEvaluator.Evaluate(`now().sub($.data.duration).format("hh:mm:ss DD/MM/yyyy")`))
 }
