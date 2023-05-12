@@ -43,8 +43,8 @@ func NewJSEvaluator(contextGetter contextgetter.ContextGetter) *JSEvaluator {
 	global.Set("getCtx", getCtx.GetFunction(ctx)) // sets the "print" property of the Object to our function
 
 	ctx.RunScript(setupContextGetter, "setupContextGetter.js") // will execute the Go callback with a single argunent 'foo'
-	ctx.RunScript(setupFuncs, "setupFuncs.js")                 // will execute the Go callback with a single argunent 'foo'
 	ctx.RunScript(moment, "moment.js")
+	ctx.RunScript(setupFuncs, "setupFuncs.js") // will execute the Go callback with a single argunent 'foo'
 
 	return &JSEvaluator{
 		ContextGetter: contextGetter,
