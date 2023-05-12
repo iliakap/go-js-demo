@@ -7,9 +7,11 @@ import (
 	"github.com/iliakap/go-js-demo/evaluator"
 )
 
+const dummyContext = `{"data": {"duration": "P10D"}}`
+
 func main() {
-	ctx := contextgetter.New()
-	jsEvaluator := evaluator.NewJSEvaluator(ctx)
+	ctxGetter := contextgetter.New(dummyContext)
+	jsEvaluator := evaluator.NewJSEvaluator(ctxGetter)
 
 	fmt.Println(jsEvaluator.Evaluate(`moment().subtract(moment.duration($.data.duration)).format("YYYY-MM-DD")`))
 }
