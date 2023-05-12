@@ -33,18 +33,19 @@ func NewJSEvaluator(contextGetter contextgetter.ContextGetter) *JSEvaluator {
 
 	global := ctx.Global()
 
-	// a template that represents a JS function
+	// get the values from the context
 	getCtx := v8.NewFunctionTemplate(iso, func(info *v8.FunctionCallbackInfo) *v8.Value {
-		val, _ := contextGetter.GetFromContext(info.Args()[0].String())
+		path := info.Args()[0].String()
+		val, _ := contextGetter.GetFromContext(path)
 		value, _ := v8.NewValue(iso, val)
 		return value
 	})
+	global.Set("getCtx", getCtx.GetFunction(ctx))
 
-	global.Set("getCtx", getCtx.GetFunction(ctx)) // sets the "print" property of the Object to our function
-
-	ctx.RunScript(setupContextGetter, "setupContextGetter.js") // will execute the Go callback with a single argunent 'foo'
+	// setup js environment
+	ctx.RunScript(setupContextGetter, "setupContextGetter.js")
 	ctx.RunScript(moment, "moment.js")
-	ctx.RunScript(setupFuncs, "setupFuncs.js") // will execute the Go callback with a single argunent 'foo'
+	ctx.RunScript(setupFuncs, "setupFuncs.js")
 
 	return &JSEvaluator{
 		ContextGetter: contextGetter,
