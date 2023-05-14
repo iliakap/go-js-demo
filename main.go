@@ -16,6 +16,6 @@ func main() {
 	ctxGetter := contextgetter.New(dummyContext)
 	jsEvaluator := evaluator.NewJSEvaluator(ctxGetter)
 
-	fmt.Println(jsEvaluator.Evaluate(`{{js now().sub($.data.duration) }}`))
-	fmt.Println(jsEvaluator.Evaluate(`{{js now().sub($.data.duration).format("hh:mm:ss DD/MM/yyyy") }}`))
+	fmt.Println(jsEvaluator.Evaluate(demo1))
+	fmt.Println(jsEvaluator.Evaluate(demo2))
 }
